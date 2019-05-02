@@ -233,6 +233,38 @@ module.exports = {
         await button.click()
 
         await waitForUnlockedScreen(metamaskPage);
+      },
+      signTypedData: async () => {
+        await metamaskPage.bringToFront()
+        if (!signedIn) {
+          throw new Error("You haven't signed in yet")
+        }
+        await metamaskPage.reload()
+
+        const confirmButtonSelector = '.request-signature__footer .request-signature__footer__sign-button'
+
+        await metamaskPage.waitFor(confirmButtonSelector);
+
+        const button = await metamaskPage.$(confirmButtonSelector);
+        await button.click()
+
+        await waitForUnlockedScreen(metamaskPage);
+      },
+      cancelSignTypedData: async () => {
+        await metamaskPage.bringToFront()
+        if (!signedIn) {
+          throw new Error("You haven't signed in yet")
+        }
+        await metamaskPage.reload()
+
+        const confirmButtonSelector = '.request-signature__footer .request-signature__footer__cancel-button'
+
+        await metamaskPage.waitFor(confirmButtonSelector);
+
+        const button = await metamaskPage.$(confirmButtonSelector);
+        await button.click()
+
+        await waitForUnlockedScreen(metamaskPage);
       }
     }
   }
